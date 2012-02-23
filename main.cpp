@@ -19,14 +19,14 @@
 
 QMap<QString, QString>   availableColorSchemes();
 void                     applyColorScheme(const QString &path);
+void                     toggleColorScheme();
+QString                  currentColorScheme();
 
 
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
     QStringList arguments = QCoreApplication::arguments();
-
-    QMap<QString, QString> schemes = availableColorSchemes();
 
     QStringListIterator iter(arguments);
     if (iter.hasNext()) iter.next(); // first is always the commmand
@@ -35,6 +35,8 @@ int main(int argc, char *argv[])
         std::cout << "Usage: kcs <list|switch> [ColorSchemeName]" << std::endl;
         return 0;
     }
+    
+    QMap<QString, QString> schemes = availableColorSchemes();
 
     QString command = iter.next();
     if (command == "list") {
@@ -54,13 +56,11 @@ int main(int argc, char *argv[])
         applyColorScheme(schemes[schemeName]);
     }
     else if (command == "current") {
-        KSharedConfigPtr globalConfig = KSharedConfig::openConfig("kdeglobals");
-        KConfigGroup group(globalConfig, "General");
         std::cout << "Current colorscheme is => " 
-            << group.readEntry("ColorScheme").toStdString() << std::endl;
+            << currentColorScheme().toStdString() << std::endl;
     }
     else if (command == "toggle") {
-        //TODO
+        toggleColorScheme();
     }
     else {
         std::cerr << "<error> Invalid command provided";
@@ -125,3 +125,46 @@ void applyColorScheme(const QString &path)
     cfg.sync();
 }
 
+void toggleColorScheme()
+{
+    KSharedConfigPtr profileConfig = KSharedConfig::openConfig("/home/vishesh/.kcss-profilerc");
+    KConfigGroup dark(profileConfig, "Dark");
+    KConfigGroup light(profileConfig, "Light");
+    KConfigGroup def(profileConfig, "Default");
+
+    QString darkCs = dark.readEntry("ColorScheme");
+    QString lightCs = light.readEntry("ColorScheme");
+    QString defCs = def.readEntry("Profile");
+    QString currentCs = currentColorScheme();
+
+    kDebug() << "Current color scheme is " << currentCs;
+
+    QMap<QString, QString> schemes = availableColorSchemes();
+
+    if (currentCs == darkCs) {
+        kDebug() << "Applying " << lightCs;
+        applyColorScheme(schemes[lightCs]);
+    }
+    else if (currentCs == lightCs) {
+        kDebug() << "Applying " << darkCs;
+        applyColorScheme(schemes[darkCs]);
+    }
+    else if (defCs == "Dark") {
+        kDebug() << "Applying " << darkCs;
+        applyColorScheme(schemes[darkCs]);
+    }
+    else if(defCs == "Light") {
+        kDebug() << "Applying " << lightCs;
+        applyColorScheme(schemes[lightCs]);
+    }
+    else {
+        std::cerr << "Invalid config?" << std::endl;
+    }
+}
+
+QString currentColorScheme()
+{
+    KSharedConfigPtr globalConfig = KSharedConfig::openConfig("kdeglobals");
+    KConfigGroup group(globalConfig, "General");
+    return group.readEntry("ColorScheme");
+}
