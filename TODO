@@ -1,7 +1,7 @@
 kcss
 ----
 
-* current: Print current color scheme
+* getopt or better argument parsing
 * profiles
 * toggle: Toggle betweeen dark and light backgrounds
 * Clean up and find potential problems in current implementation.
