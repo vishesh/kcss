@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include <QtCore/QFileInfo>
+#include <QtCore/QDir>
 #include <QtDBus/QtDBus>
 #include <QCoreApplication>
 
@@ -16,6 +17,7 @@
 #include <KConfigGroup>
 #include <KGlobalSettings>
 #include <KStandardDirs>
+#include <KUrl>
 
 QMap<QString, QString>   availableColorSchemes();
 void                     applyColorScheme(const QString &path);
@@ -132,8 +134,10 @@ void applyColorScheme(const QString &path)
 
 void toggleColorScheme()
 {
-    QFileInfo fi("~/.kcss-profilerc");
-    KSharedConfigPtr profileConfig = KSharedConfig::openConfig(fi.absoluteFilePath());
+    KUrl cfp(QDir::homePath());
+    cfp.addPath(".kcss-profilerc");
+
+    KSharedConfigPtr profileConfig = KSharedConfig::openConfig(cfp.path());
     KConfigGroup dark(profileConfig, "Dark");
     KConfigGroup light(profileConfig, "Light");
     KConfigGroup def(profileConfig, "Default");
