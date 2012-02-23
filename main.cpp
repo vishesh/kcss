@@ -98,6 +98,11 @@ void applyColorScheme(const QString &path)
         KConfigGroup schemeGroup(schemeConfig, group);
         KConfigGroup globalGroup(globalConfig, group);
 
+        if (group.startsWith("Color") || group.startsWith("WM")) {
+            globalGroup.deleteGroup();
+            globalGroup = KConfigGroup(globalConfig, group);
+        }
+
         QMap<QString, QString> schemeEntryMap = schemeGroup.entryMap();
 
         QMap<QString, QString>::const_iterator i = schemeEntryMap.constBegin();
@@ -113,16 +118,16 @@ void applyColorScheme(const QString &path)
         globalConfig->sync();
     }
 
-    KGlobalSettings::self()->emitChange(KGlobalSettings::PaletteChanged);
-    QDBusMessage message = QDBusMessage::createSignal("/KWin", "org.kde.KWin", "reloadConfig");
-    QDBusConnection::sessionBus().send(message);
-
     KConfig cfg("kcmdisplayrc", KConfig::NoGlobals);
     KConfigGroup displayGroup(&cfg, "X11");
 
     bool applyToAlien = true;
     displayGroup.writeEntry("exportKDEColors", applyToAlien );
     cfg.sync();
+
+    KGlobalSettings::self()->emitChange(KGlobalSettings::PaletteChanged);
+    QDBusMessage message = QDBusMessage::createSignal("/KWin", "org.kde.KWin", "reloadConfig");
+    QDBusConnection::sessionBus().send(message);
 }
 
 void toggleColorScheme()
@@ -168,3 +173,4 @@ QString currentColorScheme()
     KConfigGroup group(globalConfig, "General");
     return group.readEntry("ColorScheme");
 }
+
