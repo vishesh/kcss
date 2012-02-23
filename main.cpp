@@ -53,6 +53,15 @@ int main(int argc, char *argv[])
         }
         applyColorScheme(schemes[schemeName]);
     }
+    else if (command == "current") {
+        KSharedConfigPtr globalConfig = KSharedConfig::openConfig("kdeglobals");
+        KConfigGroup group(globalConfig, "General");
+        std::cout << "Current colorscheme is => " 
+            << group.readEntry("ColorScheme").toStdString() << std::endl;
+    }
+    else if (command == "toggle") {
+        //TODO
+    }
     else {
         std::cerr << "<error> Invalid command provided";
     }
