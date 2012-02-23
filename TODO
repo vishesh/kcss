@@ -1,0 +1,8 @@
+kcss
+----
+
+* current: Print current color scheme
+* profiles
+* toggle: Toggle betweeen dark and light backgrounds
+* Clean up and find potential problems in current implementation.
+
