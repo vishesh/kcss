@@ -132,7 +132,8 @@ void applyColorScheme(const QString &path)
 
 void toggleColorScheme()
 {
-    KSharedConfigPtr profileConfig = KSharedConfig::openConfig("/home/vishesh/.kcss-profilerc");
+    QFileInfo fi("~/.kcss-profilerc");
+    KSharedConfigPtr profileConfig = KSharedConfig::openConfig(fi.absoluteFilePath());
     KConfigGroup dark(profileConfig, "Dark");
     KConfigGroup light(profileConfig, "Light");
     KConfigGroup def(profileConfig, "Default");
