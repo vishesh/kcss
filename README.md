@@ -8,7 +8,7 @@ http://vishesh-yadav.com/blog/2012/02/23/change-kde-colorschemes-by-shortcuts/
 Compile and Install
 -------------------
 
-kcss uses cmake. The compilation steps is similar to traditional configure,
+kcss uses cmake. The compilation steps are similar to traditional configure,
 make, install.
 
     $ cd ~/src/kcss
