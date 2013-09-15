@@ -22,3 +22,11 @@ We build under subdirectory 'build' to keep source tree clean from intermediate
 binary and configuration files. You can build it directly on source tree as
 well. 
 
+Usage
+-----
+Create a .kcss-profilerc file in your `home` directory. You can use the one provided as an example.
+
+  * `kcss list` Lists all the available schemes
+  * `kcss toggle` Toggle from dark/light scheme
+  * `kcss current` Displays the current scheme
+  * `kcss switch <scheme-name>` Switch to <scheme-name>
