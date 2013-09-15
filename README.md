@@ -22,11 +22,15 @@ We build under subdirectory 'build' to keep source tree clean from intermediate
 binary and configuration files. You can build it directly on source tree as
 well. 
 
+If you have trouble with cmake searching for KDE4 libraries, install `kdelibs5-dev`:
+
+    $ sudo apt-get install kdelibs5-dev
+
 Usage
 -----
 Create a .kcss-profilerc file in your `home` directory. You can use the one provided as an example.
 
-  * `kcss list` Lists all the available schemes
-  * `kcss toggle` Toggle from dark/light scheme
-  * `kcss current` Displays the current scheme
-  * `kcss switch <scheme-name>` Switch to <scheme-name>
+  * `$ kcss list` Lists all the available schemes
+  * `$ kcss toggle` Toggle from dark/light scheme
+  * `$ kcss current` Displays the current scheme
+  * `$ kcss switch <scheme-name>` Switch to <scheme-name>
