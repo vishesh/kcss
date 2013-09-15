@@ -1,5 +1,5 @@
 /**
- * kcs: Switch color schemes in KDE via command line
+ * kcss: Switch color schemes in KDE via command line
  *
  * @author Vishesh Yadav
  * @license BSD Licence
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     if (iter.hasNext()) iter.next(); // first is always the commmand
 
     if (!iter.hasNext()) {
-        std::cout << "Usage: kcs <list|switch> [ColorSchemeName]" << std::endl;
+        std::cout << "Usage: kcss <list|toggle|current|switch> [ColorSchemeName]" << std::endl;
         return 0;
     }
     
