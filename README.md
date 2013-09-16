@@ -17,14 +17,14 @@ make, install.
     $ cmake ..
     $ make
     $ sudo make install
+    
+    or `su -c make install`
 
 We build under subdirectory 'build' to keep source tree clean from intermediate
 binary and configuration files. You can build it directly on source tree as
 well. 
 
-If you have trouble with cmake searching for KDE4 libraries, install `kdelibs5-dev`:
-
-    $ sudo apt-get install kdelibs5-dev
+If you have trouble with cmake searching for KDE4 libraries, install `kdelibs-dev`.
 
 Usage
 -----
