@@ -18,7 +18,7 @@ make, install.
     $ make
     $ sudo make install
     
-    or `su -c make install`
+or `$ su -c make install` if you don't have sudo installed
 
 We build under subdirectory 'build' to keep source tree clean from intermediate
 binary and configuration files. You can build it directly on source tree as
